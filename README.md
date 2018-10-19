@@ -19,6 +19,11 @@ put in node_modules and .DS_Store
 
 7. we make our api to talk to our mongo database called pets_db in server.js
 
+to run backend on localhost:3001 use command on your terminal:
+nodemon server
+or
+node server
+
 8. we run this command in the directory where our server.js file is in 
 
 create-react-app client
@@ -52,8 +57,17 @@ our client folder (react app) needs to speak to our server.js file to be able to
 
 
 
+1. client folder is our front end folder
 
+- inside public folder, index.html (never change it exept adding bootstrap or some other additional things).
+entire app is in <div id="root"><div>
 
+- in src folder it is all js files:
+index.js is the main react file, it's importing packages, another css file, and in the line it is taking App.js file and passing the react component and saying it should be displaying into the element with id='root':
+
+ReactDOM.render(<App />, document.getElementById('root'));
+
+npm install express 
 
 
 
