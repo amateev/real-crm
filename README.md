@@ -19,7 +19,7 @@ put in node_modules and .DS_Store
 
 7. we make our api to talk to our mongo database called pets_db in server.js
 
-to run backend on localhost:3001 use command on your terminal:
+to run backend on localhost:3001 use command on your terminal (go to up from client folder):
 nodemon server
 or
 node server
@@ -28,7 +28,7 @@ node server
 
 create-react-app client
 
-9. we go into the client folder and run this command
+9. we go into the client folder and run this command (in client folder)
 
 yarn install
 

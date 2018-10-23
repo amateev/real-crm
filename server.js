@@ -1,24 +1,33 @@
 // Dependencies
 var express = require("express");
-var mongojs = require("mongojs");
+var app = express();
+var mysql = require('mysql');
+
+//you need this to be able to process information sent to a POST route
+// to get req.body
+// get inf from forms, post request
 var bodyParser = require('body-parser');
+  // parse application/x-www-form-urlencoded
+  app.use(bodyParser.urlencoded({ extended: true }));
+
+  // parse application/json
+  app.use(bodyParser.json());
+
 
 var PORT = 3001;
 var app = express();
 
-// set the app up with bodyparser
-app.use(bodyParser());
+// Initializes the connection variable to sync with a MySQL database
+var connection = mysql.createConnection({
+  host: "localhost",
+  // Your port; if not 3306
+  port: 3306,
+  // Your username
+  user: "root",
 
-// Database configuration
-var databaseUrl = "pets_db";
-var collections = ["pets"];
-
-// Hook mongojs config to db variable
-var db = mongojs(databaseUrl , collections);
-
-// Log any mongojs errors to console
-db.on("error", function(error) {
-  console.log("Database Error:", error);
+  // Your password
+  password: "",
+  database: "real_crm_db"
 });
 
 //we have to have it befor the routs
@@ -29,57 +38,80 @@ db.on("error", function(error) {
 
   read up on CORs here: https://www.maxcdn.com/one/visual-glossary/cors/
 */
-  //allow the api to be accessed by other apps
+  //allow the api to be accessed by other apps (otherwise you cannot access this rout using App.js and only local host cant use this API like 3001)
+  //we are setting headers
   app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
     res.header("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE");
     next();
   });
-
+//next() goes to the next route
   
 
 app.get('/', function(req, res){
   res.send('hi');
 });
 
-app.get('/pets', function(req, res){
-  db.pets.find(function(error, data){
-    res.json(data);
-  })
+// get the list of all agents
+app.get('/agents', function(req, res){
+  connection.query(
+      "SELECT * FROM agent",
+      function(err, response) {
+        res.json(response);
+      }
+    );
+});
 
-  // select * from pets;
+// get the list of all clients
+app.get('/clients', function(req, res){
+  connection.query(
+      "SELECT * FROM client",
+      function(err, response) {
+        res.json(response);
+      }
+    );
+});
+
+
+//add an agent
+app.post('/submit', function(req, res){
+  // res.json(req.body);
+  // req.body turns into an object
+   connection.query(
+       "INSERT INTO agent (first_name, last_name, city, phone, email) VALUES (?, ?, ?, ?, ?, ?)",
+  [req.body.first_name, req.body.last_name, req.body.city, req.body.phone, req.body.email],
+      function(err, response) {
+        if (err) throw err;
+      }
+    );
+
+});
+
+//display an agent
+app.get('/agents/:id', function(req, res){
+  res.send('hi'),
+  connection.query(
+       "SELECT * FROM agent WHERE id=?",
+  [req.param.id],
+      function(err, response) {
+        if (err) throw err;
+      }
+    );
 })
 
-//get is an http method
-
-//'/pets/:id' is a url pattern
-
-// BOTH OF THEM TOGETHER IS a route
-
-app.get('/pets/:id', function(req, res){
-
-  db.pets.findOne({
-    "_id": mongojs.ObjectID(req.params.id)
-  }, function(error, result){
-      res.json(result);
-  });
-
-  // select * from pets;
+//delete an agent
+app.post('/agents/:id', function(req, res){
+  connection.query(
+       "SELECT * FROM agent WHERE id=?",
+  [req.param.id],
+      function(err, response) {
+        if (err) throw err;
+      }
+    );
 })
 
-/*
-  how to hit a post route
 
-  form with a method of POST and an action of /pets/5bb2de27c385cb3290b0e598
-
-  ajax query in JavaScript with a method of post and url of /pets/5bb2de27c385cb3290b0e598
-
-  you can do a curl call also like this:
-  curl -X POST http://localhost:3001/pets/5bb2de27c385cb3290b0e598
-
-  in node.js you can use the request package to do post request 
-*/
 
 app.post('/pets/:id', function(req, res){
   //curl -X POST http://localhost:3001/pets/5bb2de27c385cb3290b0e598
