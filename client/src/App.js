@@ -7,38 +7,40 @@ class App extends Component {
     super();
 
     this.state = {
-      pets : [{_id: 1, name: 'fido', type: 'dog'}, {_id: 2, name: 'snowflake', type: 'humpster'}],
-      name : 'will'
+      agents : [{_id: 1, first_name: 'Jessica', last_name: 'Simpson'}, {_id: 2, first_name: 'Morgan', last_name: 'Kent'}],
+      name : 'Real CRM'
     }
 
     // this.deletePet = this.deletePet.bind(this);
   }
 
+  componentDidMount() {
+    return fetch("http://localhost:3001/agents")
+    .then((res) => res.json())
+      .then(resultingJSON => this.setState({agents : resultingJSON}))
+  }
 
   render() {
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <p> 
-            {this.state.name}
-          </p>
-            {this.state.pets.map((x) =>
+          
+            <h1>{this.state.name}</h1>
+          
+            {this.state.agents.map((x) =>
             <p key={x._id}> 
-              {x.name} | {x.type} <button onClick={this.deletePet} data-id={x._id}>x</button>
+              {x.first_name} | {x.last_name} <button onClick={this.deletePet} data-id={x._id}>x</button>
             </p>
-          )}
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
+            )}
+
+            <form onSubmit={this.createAgent}>
+              <input type="text" name="first name" placeholder="enter first name" />
+              <input type="text" name="last name" placeholder="enter last name" />
+
+              <button>add an agent</button>
+            </form>
+
+        
         </header>
       </div>
     );
