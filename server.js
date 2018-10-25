@@ -74,6 +74,7 @@ app.get('/clients', function(req, res){
 });
 
 
+
 //add an agent
 app.post('/submit', function(req, res){
   // res.json(req.body);
@@ -88,6 +89,7 @@ app.post('/submit', function(req, res){
 
 });
 
+
 //display an agent
 app.get('/agents/:id', function(req, res){
   res.send('hi'),
@@ -100,10 +102,11 @@ app.get('/agents/:id', function(req, res){
     );
 })
 
+
 //delete an agent
 app.post('/agents/:id', function(req, res){
   connection.query(
-       "SELECT * FROM agent WHERE id=?",
+       "DELETE FROM agent WHERE id=?",
   [req.param.id],
       function(err, response) {
         if (err) throw err;

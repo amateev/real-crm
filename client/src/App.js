@@ -7,11 +7,18 @@ class App extends Component {
     super();
 
     this.state = {
-      agents : [{_id: 1, first_name: 'Jessica', last_name: 'Simpson'}, {_id: 2, first_name: 'Morgan', last_name: 'Kent'}],
+      agents : [],
       name : 'Real CRM'
     }
 
+    //if not doing arrow function, then you will need this:
     // this.deletePet = this.deletePet.bind(this);
+  }
+
+
+  deleteAgent = (event) => {
+    debugger;
+    alert('Hi');
   }
 
   componentDidMount() {
@@ -26,10 +33,10 @@ class App extends Component {
         <header className="App-header">
           
             <h1>{this.state.name}</h1>
-          
+            <h2>List of Agents:</h2>
             {this.state.agents.map((x) =>
-            <p key={x._id}> 
-              {x.first_name} | {x.last_name} <button onClick={this.deletePet} data-id={x._id}>x</button>
+            <p key={x.id}> 
+              {x.first_name} | {x.last_name} <button onClick={this.deleteAgent} data-id={x.id}>x</button>
             </p>
             )}
 

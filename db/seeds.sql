@@ -7,7 +7,9 @@ INSERT INTO listing (address, price, img, post_date, sold_date, sold_price, agen
 INSERT INTO agent (first_name, last_name, city, phone, email) VALUES ('Stive', 'Muer', 'Orinda', '9253785647', 'stive.muer@gmail.com');
 
 
+INSERT INTO agent (first_name, last_name, city, phone, email) VALUES ('Simon', 'Cul', 'Orinda', '9253785647', 'stive.muer@gmail.com');
 
+INSERT INTO agent (first_name, last_name, city, phone, email) VALUES ('Michael', 'Kamel', 'Orinda', '9253785647', 'stive.muer@gmail.com');
 
 
 
