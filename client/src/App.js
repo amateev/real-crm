@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Nav from "./components/Nav";
+import Header from "./components/Header";
 import './App.css';
 
 class App extends Component {
@@ -30,9 +31,10 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
+      <div>
         <Nav />
-        <header className="App-header">
+        <Header />
+        <p className="App-header">
           
             <h1>{this.state.name}</h1>
             <h2>List of Agents:</h2>
@@ -50,7 +52,7 @@ class App extends Component {
             </form>
 
         
-        </header>
+        </p>
       </div>
     );
   }
