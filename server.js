@@ -105,6 +105,7 @@ app.get('/agents/:id', function(req, res){
 
 //delete an agent
 app.post('/agents/:id', function(req, res){
+  
   connection.query(
        "DELETE FROM agent WHERE id=?",
   [req.param.id],

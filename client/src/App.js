@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import Nav from "./components/Nav";
 import './App.css';
 
 class App extends Component {
@@ -17,8 +17,9 @@ class App extends Component {
 
 
   deleteAgent = (event) => {
-    debugger;
+    var id = event.target.getAttribute('data-id');
     alert('Hi');
+
   }
 
   componentDidMount() {
@@ -30,6 +31,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        <Nav />
         <header className="App-header">
           
             <h1>{this.state.name}</h1>
