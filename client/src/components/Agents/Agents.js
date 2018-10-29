@@ -1,24 +1,18 @@
-import React, { Component } from 'react';
-import Nav from "./components/Nav";
-import Footer from "./components/Footer";
-import Container from "./components/Container";
-import './App.css';
+import React, { Component } from "react";
+import "./Agents.css";
 
-class App extends Component {
-    constructor() {
-    super();
+class Agents extends Component {
+	 constructor() {
+     super();
 
-    this.state = {
-      agents : [],
-      name : 'Agents:'
-    }
+	    this.state = {
+	      agents : [],
+	      name: 'List of Agents:'
+	    }
 
-    //if not doing arrow function, then you will need this:
-    // this.deletePet = this.deletePet.bind(this);
-  }
+  	}
 
-
-  deleteAgent = (event) => {
+ deleteAgent = (event) => {
     var id = event.target.getAttribute('data-id');
     alert('Hi');
         return fetch(`http://localhost:3001/agents/${id}`, {
@@ -41,20 +35,20 @@ class App extends Component {
     .then((res) => res.json())
       .then(resultingJSON => this.setState({agents : resultingJSON}))
   }
+}
 
-  render() {
+
+ render() {
     return (
       <div>
-        <Nav />
         
-        <Container />
         <p className="App-header">
           
-            <h2>{this.state.name}</h2>
-    
+            <h1>{this.state.name}</h1>
+            
             {this.state.agents.map((x) =>
             <p key={x.id}> 
-              {x.first_name}  {x.last_name} <button onClick={this.deleteAgent} data-id={x.id}>x</button>
+              {x.first_name} | {x.last_name} <button onClick={this.deleteAgent} data-id={x.id}>x</button>
             </p>
             )}
 
@@ -67,10 +61,8 @@ class App extends Component {
 
         
         </p>
-        <Footer />
+        
       </div>
     );
   }
-}
 
-export default App;
