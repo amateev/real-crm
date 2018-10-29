@@ -34,7 +34,34 @@ class App extends Component {
             this.setState({agents})
           })
 
+
   }
+
+    createAgent = (event) => {
+    event.preventDefault();
+
+    let first_name = event.target.children[0].value;
+    let last_name = event.target.children[1].value;
+debugger;
+    return fetch("http://localhost:3001/agents", {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({first_name, last_name})
+      }).then(res => res.json()).then(rj => {
+        let agents = [...this.state.agents, rj];
+        this.setState({agents})
+      })
+  }
+
+
+
+  
+
+
+
 
   componentDidMount() {
     return fetch("http://localhost:3001/agents")
@@ -48,7 +75,7 @@ class App extends Component {
         <Nav />
         
         <Container />
-        <p className="App-header">
+        <div className="App-header">
           
             <h2>{this.state.name}</h2>
     
@@ -65,8 +92,9 @@ class App extends Component {
               <button>add an agent</button>
             </form>
 
+
         
-        </p>
+        </div>
         <Footer />
       </div>
     );
