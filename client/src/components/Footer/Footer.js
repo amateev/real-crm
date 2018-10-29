@@ -4,7 +4,8 @@ import "./Footer.css";
 const Footer = props => (
     <nav className="footer">
       <div class="bottom">
-        <a class="navbar-brand" href="/">Real CRM copyright 2018</a>
+        <p>Real CRM</p>
+        <p> copyright 2018 </p>
       </div>
     </nav>
 );

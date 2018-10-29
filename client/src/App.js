@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Nav from "./components/Nav";
-import Header from "./components/Header";
 import Footer from "./components/Footer";
+import Container from "./components/Container";
 import './App.css';
 
 class App extends Component {
@@ -21,6 +21,18 @@ class App extends Component {
   deleteAgent = (event) => {
     var id = event.target.getAttribute('data-id');
     alert('Hi');
+        return fetch(`http://localhost:3001/agents/${id}`, {
+            method: "POST",
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            }
+          }).then(res => res.json()).then(deletedAgentId => {
+
+            let agents = this.state.agents.filter(agent => agent.id !== deletedAgentId)
+
+            this.setState({agents})
+          })
 
   }
 
@@ -34,7 +46,8 @@ class App extends Component {
     return (
       <div>
         <Nav />
-        <Header />
+        
+        <Container />
         <p className="App-header">
           
             <h1>{this.state.name}</h1>

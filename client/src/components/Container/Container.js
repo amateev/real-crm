@@ -1,14 +1,14 @@
 import React from "react";
-import "./Header.css";
+import "./Container.css";
 
-const Header = props => (
+const Container = props => (
 	<div>
 	<header className="header">
 		<h1>Real CRM</h1>
 		<h2> an application for every real estate agent</h2>
 	</header>
 	<section className="py-bg-section">
-	Hello
+	<h4>Our promise is to bring the convinience, simplicity and exellent performance to our customers.</h4>
 	</section>
 	<section className="py-bg-image-full">
 	</section>
@@ -16,4 +16,4 @@ const Header = props => (
 	)
 
 
-export default Header;	
+export default Container;	
